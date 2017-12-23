@@ -1,0 +1,44 @@
+﻿<Window x:Class="DataBindingExample.SimpleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBindingExample"
+        xmlns:viewModel="clr-namespace:DataBindingExample.ViewModel"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Title="SimpleWindow" Height="300" Width="300">
+    <Grid Background="{Binding Male, Converter={StaticResource SexToBrushConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Имя"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="День рождения"></TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="2"
+                 x:Name="TextBoxName"
+                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="2" 
+                   Text="{Binding Birthday, StringFormat='dd.MM.yyyy', TargetNullValue='не указан'}"/>
+        <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding Male}">Male</CheckBox>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding Male, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right" Width="292">Мужской</TextBlock>
+        <!--<TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">Женский</TextBlock>-->
+        <Button Grid.Row="4" Grid.Column="1" 
+                Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=Background}"
+                Command="{Binding UpdateCommand}"
+                CommandParameter="{Binding ElementName=TextBoxNewName, Path=Text}">Поменять имя на</Button>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="2"
+                 x:Name="TextBoxNewName"
+                 TextChanged="TextBoxNewName_OnTextChanged"/>
+
+    </Grid>
+</Window>
