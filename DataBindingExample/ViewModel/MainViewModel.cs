@@ -19,9 +19,9 @@ namespace DataBindingExample.ViewModel
 
         ObservableCollection<PersonViewModel> _personViewModels = new ObservableCollection<PersonViewModel>();
 
-        CollectionViewSource _cvs = new CollectionViewSource();
+        ObservableCollection<PersonViewModel> _personViewModelsFiltered = new ObservableCollection<PersonViewModel>();
 
-        CollectionViewSource _cvs_birthdays = new CollectionViewSource(); 
+        CollectionViewSource _cvs = new CollectionViewSource();
 
         public MainViewModel()
         {
@@ -35,15 +35,17 @@ namespace DataBindingExample.ViewModel
 
             _persons.CollectionChanged += _persons_CollectionChanged;
 
-            _cvs.Source = _personViewModels;
+            Binding binding = new Binding();
+            binding.Source = _personViewModels;
+            BindingOperations.SetBinding(_cvs, CollectionViewSource.SourceProperty, binding);
+
+            //_cvs.Source = _personViewModels;
             _cvs.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+           // _cvs.Filter += new FilterEventHandler(_csv_Filter_Example);
             _cvs.Filter += new FilterEventHandler(_cvs_Filter);
 
             _cvs.View.CurrentChanged += View_CurrentChanged;
             _cvs.View.CollectionChanged += View_CollectionChanged;
-
-            _cvs_birthdays.Source = _personViewModels;
-            _cvs_birthdays.Filter += new FilterEventHandler(_cvs_birthday_Filter); 
 
             AddCommand = new XCommand(Add);
             DeleteCommand = new XCommand(Delete);
@@ -96,11 +98,39 @@ namespace DataBindingExample.ViewModel
             }
         }
 
-        public Persons PersonsCollection
+        public ObservableCollection<PersonViewModel> PersonsCollection
+        {
+
+            set
+            {
+                _personViewModels.Clear();
+                foreach (PersonViewModel pvm in value)
+                {
+                    _personViewModels.Add(pvm);
+                }
+            }
+        }
+
+
+        public Persons personsSet
         {
             get
             {
                 return _persons;
+            }
+        }
+
+        public ObservableCollection<PersonViewModel> PersonsCollectionFiltered
+        {
+            get
+            {
+                return _personViewModelsFiltered;
+            }
+
+            set
+            {
+                _personViewModelsFiltered = value;
+                _cvs.View.Refresh();
             }
         }
 
@@ -118,6 +148,13 @@ namespace DataBindingExample.ViewModel
                 _cvs.View.Refresh();
             }
         }
+
+
+        void _csv_Filter_Example(object sender, FilterEventArgs e)
+        {
+            _cvs.Source = _personViewModelsFiltered;
+        }
+
 
         void _cvs_Filter(object sender, FilterEventArgs e)
         {

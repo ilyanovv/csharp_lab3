@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace DataBindingExample.ViewModel
 {
-    class PersonViewModel : INotifyPropertyChanged
+    public class PersonViewModel : INotifyPropertyChanged
     {
         Person _person;
 

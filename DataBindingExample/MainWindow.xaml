@@ -21,13 +21,9 @@
                 </ToolBar>
 
                 <TextBox Name ="searchBox" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="303" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"/>
-           
+
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                <ListBox Name="listbox" Width="400" Height="400" FontSize="20" ></ListBox>
-            </StackPanel>
-            
 
             <StatusBar Height="30" HorizontalAlignment="Stretch" 
                        Name="statusBar1" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
@@ -74,7 +70,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="День рождения" Binding="{Binding Path=Birthday}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="День рождения" Binding="{Binding Path=Birthday, StringFormat='{}{0:dd-MMM-yyyy}', Mode=TwoWay}"></DataGridTextColumn>
                     <DataGridCheckBoxColumn Header="М" Binding="{Binding Male}"></DataGridCheckBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace DataBindingExample
 {
-    class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         private Action<object> _action;
 
