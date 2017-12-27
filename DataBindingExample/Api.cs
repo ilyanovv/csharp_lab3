@@ -20,8 +20,7 @@ namespace DataBindingExample
 
         public IObservable<ObservableCollection<PersonViewModel>> Search(string filter)
         {
-            var list = new List<string> { "Vera", "Chuck", "Dave", "John", "Paul", "Ringo", "George" };
-            var filteredList = list.Where(x => x.ToLower().Contains(filter.ToLower()));
+            filter = filter.Trim();
             IEnumerable<Person> filteredPersons = personsCollection.Where(x => x.Name.ToLower().Contains(filter.ToLower()));
             ObservableCollection<PersonViewModel> personsToShow = new ObservableCollection<PersonViewModel>();
             foreach (Person person in filteredPersons)

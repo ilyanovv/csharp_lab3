@@ -1,15 +1,23 @@
 ﻿<Window x:Class="DataBindingExample.WindowAddContact"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:src="clr-namespace:DataBindingExample"
         Title="WindowAddContact" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Имя" Margin="2"></TextBlock>
@@ -18,7 +26,38 @@
 
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="2" Text="Пол"></TextBlock>
         <CheckBox Grid.Row="1" Grid.Column="1" Margin="2" IsChecked="{Binding Male}">Male</CheckBox>
-        <Button  Grid.Row="2" Grid.Column="0"
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="2" Text="День Рождения"></TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Birthday, StringFormat='{}{0:dd-MMM-yyyy}'}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email" Margin="2"></TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="2"  Text="{Binding Email}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Рабочий телефон" Margin="2"></TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="2"  Text="{Binding WorkNumber}">
+            <i:Interaction.Behaviors>
+                <src:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.\-+]+$" MaxLength="50" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Домашний телефон" Margin="2"></TextBlock>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="2"  Text="{Binding HomeNumber}">
+            <i:Interaction.Behaviors>
+                <src:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.\-+]+$" MaxLength="50" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Skype" Margin="2"></TextBlock>
+        <TextBox Grid.Row="6" Grid.Column="1" Margin="2"  Text="{Binding Skype}"/>
+
+
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Комментарий" Margin="2"></TextBlock>
+        <TextBox Grid.Row="7" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True"
+                Text="{Binding Comment}">
+        </TextBox>
+
+
+        <Button  Grid.Row="9" Grid.Column="0"
                 Content="Ок" 
                 HorizontalAlignment="Left" 
                 Click="ButtonOk_Click" 
@@ -26,7 +65,7 @@
                 IsDefault="True"
                   VerticalAlignment="Bottom"
                  Margin="2"/>
-        <Button  Grid.Row="2" Grid.Column="2"
+        <Button  Grid.Row="9" Grid.Column="2"
                 Content="Отмена" 
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DataBindingExample.ViewModel
 {
@@ -69,6 +70,67 @@ namespace DataBindingExample.ViewModel
                 _person.Male = value;
                 OnPropertyChanged();
                 // OnPropertyChanged("BackgroundColor");
+            }
+        }
+
+
+        public string HomeNumber
+        {
+            get => _person.HomeNumber;
+            set
+            {
+                _person.HomeNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string WorkNumber
+        {
+            get => _person.WorkNumber;
+            set
+            {
+                _person.WorkNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Comment
+        {
+            get => _person.Comment;
+            set
+            {
+                _person.Comment = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get => _person.Email;
+            set
+            {
+                _person.Email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Skype
+        {
+            get => _person.Skype;
+            set
+            {
+                _person.Skype = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public BitmapImage Avatar
+        {
+            get => _person.Avatar == null ? Person.GetUnknownImage() : _person.Avatar;
+            set
+            {
+                _person.Avatar = value;
+                OnPropertyChanged();
             }
         }
 
