@@ -183,11 +183,13 @@ namespace DataBindingExample.ViewModel
             {
                 DateTime birthday = ((DateTime)p.Birthday);
                 DateTime nextBirthday = new DateTime(DateTime.Now.Year, birthday.Month, birthday.Day);
-                if (nextBirthday < DateTime.Now)
+                if (nextBirthday.Date < DateTime.Now.Date)
                     nextBirthday = nextBirthday.AddYears(1);
-                e.Accepted =  FilterBirthday == false ||  nextBirthday <= DateTime.Now.AddDays(7 * 2);
+                e.Accepted = FilterBirthday == false || nextBirthday <= DateTime.Now.AddDays(7 * 2);
             }
-                
+
+            e.Accepted = FilterBirthday == false || (e.Accepted && p.Birthday != null);
+             
         }
 
 
@@ -236,13 +238,18 @@ namespace DataBindingExample.ViewModel
             if (WindowManager.ShowDialog(personViewModel))
             {
                 _persons.Add(personViewModel.Person);
+                DBUtils.Add(personViewModel.Person);
             }
         }
 
         void Delete()
         {
             if (SelectedPerson != null)
+            {
+                DBUtils.Delete(SelectedPerson.Person);
                 _persons.Remove(SelectedPerson.Person);
+            }
+             
         }
 
         private void FilterMethod(object buttonName)

@@ -10,10 +10,9 @@ namespace DataBindingExample
 {
     public class Person
     {
+        public int? Id { get; set; }
         public BitmapImage Avatar { get; set; }
-
         public string Name { get; set;}
-
         public DateTime? Birthday { get; set; }
         public bool Male { get; set; }
         public string HomeNumber { get; set; }
@@ -25,7 +24,6 @@ namespace DataBindingExample
         public BitmapImage GetUnknownImage()
         {
             BitmapImage bi = new BitmapImage();
-            // BitmapImage.UriSource must be in a BeginInit/EndInit block.
             bi.BeginInit();
             if(Male == true)
                 bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "../../Resources/unknown.jpg");

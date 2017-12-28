@@ -76,6 +76,7 @@ namespace DataBindingExample.ViewModel
 
         public string HomeNumber
         {
+            
             get => _person.HomeNumber;
             set
             {
@@ -145,6 +146,7 @@ namespace DataBindingExample.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            DBUtils.Update(_person, propertyName);
         }
 
         public void ChangeName(object name)
