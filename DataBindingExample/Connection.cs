@@ -16,7 +16,13 @@ namespace DataBindingExample
                                                 Id INTEGER NOT NULL PRIMARY KEY,
                                                 Name TEXT,
                                                 Birthday TEXT,
-                                                Male INTEGER CHECK (Male IN (0, 1)) DEFAULT 1);";
+                                                Male INTEGER CHECK (Male IN (0, 1)) DEFAULT 1, 
+                                                HomeNumber TEXT,
+                                                WorkNumber TEXT,
+                                                Skype TEXT,
+                                                Email TEXT,
+                                                Comment TEXT,
+                                                Avatar BLOB);";
             using (var statement = connection.Prepare(sql))
             {
                 statement.Step();

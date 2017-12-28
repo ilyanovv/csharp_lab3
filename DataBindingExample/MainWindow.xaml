@@ -36,7 +36,7 @@
             </StatusBar>
 
 
-            <ScrollViewer DockPanel.Dock="Bottom" Height="100">
+            <ScrollViewer DockPanel.Dock="Bottom" Height="185">
                 <Grid  ScrollViewer.CanContentScroll="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -96,7 +96,7 @@
 
                 </Grid>
             </ScrollViewer>
-            <DataGrid Name="dataGridPersons"
+            <DataGrid Name="dataGridPersons" Height="200"
                       ItemsSource="{Binding Persons}"
                       AutoGenerateColumns="False" 
                       SelectionMode="Single" 
