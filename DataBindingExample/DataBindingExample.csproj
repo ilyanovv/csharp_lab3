@@ -86,9 +86,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Api.cs" />
+    <Compile Include="Rx.cs" />
     <Compile Include="AllowableCharactersTextBoxBehavior.cs" />
-    <Compile Include="Connection.cs" />
     <Compile Include="Converters\SexToBrushConverter.cs" />
     <Compile Include="DBUtils.cs" />
     <Compile Include="DelegateCommand.cs" />

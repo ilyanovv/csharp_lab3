@@ -10,10 +10,36 @@ namespace DataBindingExample
 {
     public class DBUtils
     {
+        private static SQLiteConnection connection = null;
+
+        public static SQLiteConnection getConnection()
+        {
+            if (connection != null)
+                return connection; 
+
+            connection = new SQLiteConnection("Storage.db");
+            string sql = @"CREATE TABLE IF NOT EXISTS People (
+                                                Id INTEGER NOT NULL PRIMARY KEY,
+                                                Name TEXT,
+                                                Birthday TEXT,
+                                                Male INTEGER CHECK (Male IN (0, 1)) DEFAULT 1, 
+                                                HomeNumber TEXT,
+                                                WorkNumber TEXT,
+                                                Skype TEXT,
+                                                Email TEXT,
+                                                Comment TEXT,
+                                                Avatar BLOB);";
+            using (var statement = connection.Prepare(sql))
+            {
+                statement.Step();
+            }
+            System.Diagnostics.Debug.WriteLine("connection = " + connection.ToString());
+            return connection; 
+        }
+
         public static void Add(Person person)
         {
-            SQLiteConnection connection = Connection.Instance.connection;
-            using (var statement = connection.Prepare("" +
+            using (var statement = getConnection().Prepare("" +
                 "INSERT INTO People (Name, Birthday, Male, WorkNumber, HomeNumber, Skype, Email, Comment, Avatar) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"))
             {
@@ -32,8 +58,7 @@ namespace DataBindingExample
 
         public static void Delete(Person person)
         {
-            SQLiteConnection connection = Connection.Instance.connection;
-            using (var statement = connection.Prepare("DELETE FROM People WHERE Id=?"))
+            using (var statement = getConnection().Prepare("DELETE FROM People WHERE Id=?"))
             {
                 statement.Bind(1, person.Id);
                 statement.Step();
@@ -42,8 +67,7 @@ namespace DataBindingExample
 
         public static void Update(Person person, String FieldToUpdate)
         {
-            SQLiteConnection connection = Connection.Instance.connection;
-            using (var statement = connection.Prepare("UPDATE People SET " + FieldToUpdate + " = ? WHERE Id=?"))
+            using (var statement = getConnection().Prepare("UPDATE People SET " + FieldToUpdate + " = ? WHERE Id=?"))
             {
                 if (person.Id == null)
                     return;
@@ -65,8 +89,7 @@ namespace DataBindingExample
 
         public static void LoadAllPersons(Persons persons)
         {
-            SQLiteConnection connection = Connection.Instance.connection;
-            using (var statement = connection.Prepare("" +
+            using (var statement = getConnection().Prepare("" +
                 "SELECT Id, Name, Birthday, Male, Skype, WorkNumber, HomeNumber, Comment, Email " +
                 "FROM People"))
             {

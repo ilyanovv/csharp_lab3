@@ -26,7 +26,7 @@ namespace DataBindingExample
             //var wnd = new SimpleWindow();
             //wnd.Show();
 
-            var api = new Api(_mainViewModel.personsSet);
+            var api = new Rx(_mainViewModel.personsSet);
 
             var textchanges = Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(
                 h => searchBox.TextChanged += h,
